@@ -18,7 +18,12 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 # Add Arrow
-find_package(Arrow REQUIRED)
+find_package(Arrow REQUIRED COMPONENTS dataset)
+get_cmake_property(_variableNames VARIABLES)
+list (SORT _variableNames)
+foreach (_variableName ${_variableNames})
+    message(STATUS "${_variableName}=${${_variableName}}")
+endforeach()
 
 set(CMAKE_CXX_CLANG_TIDY "clang-tidy")
 
@@ -37,6 +42,7 @@ function(RECIPE TARGET)
     target_link_libraries(
             ${TARGET}
             arrow_shared
+            arrow_dataset
             gtest
     )
     if (MSVC)
@@ -50,3 +56,4 @@ endfunction()
 
 recipe(basic_arrow)
 recipe(creating_arrow_objects)
+recipe(datasets)
