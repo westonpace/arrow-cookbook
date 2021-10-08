@@ -3,11 +3,13 @@
 #include <arrow/filesystem/api.h>
 #include <gtest/gtest.h>
 
+#include <filesystem>
 #include <memory>
 
 #include "common.h"
 
 TEST(Datasets, DatasetRead) {
+  std::cout << std::filesystem::current_path() << std::endl;
   StartRecipe("ListPartitionedDataset");
   std::string directory_base = "../../../r/content/airquality_partitioned";
 
