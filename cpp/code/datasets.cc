@@ -2,16 +2,82 @@
 #include <arrow/dataset/api.h>
 #include <arrow/filesystem/api.h>
 #include <gtest/gtest.h>
+#include <parquet/arrow/reader.h>
 
 #include <filesystem>
 #include <memory>
 
 #include "common.h"
 
-TEST(Datasets, DatasetRead) {
-  std::cout << std::filesystem::current_path() << std::endl;
+class DatasetReadingTest : public ::testing::Test {
+ public:
+  void SetUp() override {
+    airquality_partitioned_dir_ =
+        std::filesystem::temp_directory_path() / "cookbook_cpp_airquality";
+    std::shared_ptr<arrow::fs::FileSystem> fs =
+        std::make_shared<arrow::fs::LocalFileSystem>();
+    ASSERT_OK_AND_ASSIGN(std::shared_ptr<arrow::Table> airquality,
+                         ReadInAirQuality(fs.get()));
+    WritePartitionedAirQuality(airquality, std::move(fs));
+  }
+
+  const std::string& airquality_basedir() { return airquality_partitioned_dir_; }
+
+ private:
+  void WritePartitionedAirQuality(const std::shared_ptr<arrow::Table>& airquality,
+                                  std::shared_ptr<arrow::fs::FileSystem> fs) {
+    std::shared_ptr<arrow::RecordBatchReader> table_reader =
+        std::make_shared<arrow::TableBatchReader>(*airquality);
+
+    std::shared_ptr<arrow::dataset::ScannerBuilder> scanner_builder =
+        arrow::dataset::ScannerBuilder::FromRecordBatchReader(std::move(table_reader));
+    ASSERT_OK(scanner_builder->UseThreads(true));
+    ASSERT_OK_AND_ASSIGN(std::shared_ptr<arrow::dataset::Scanner> scanner,
+                         scanner_builder->Finish());
+
+    std::shared_ptr<arrow::Schema> partitioning_schema = arrow::schema(
+        {arrow::field("Month", arrow::int32()), arrow::field("Day", arrow::int32())});
+    std::shared_ptr<arrow::dataset::PartitioningFactory> partitioning_factory =
+        arrow::dataset::HivePartitioning::MakeFactory();
+    ASSERT_OK_AND_ASSIGN(std::shared_ptr<arrow::dataset::Partitioning> partitioning,
+                         partitioning_factory->Finish(partitioning_schema));
+
+    std::shared_ptr<arrow::dataset::ParquetFileFormat> parquet_format =
+        std::make_shared<arrow::dataset::ParquetFileFormat>();
+
+    arrow::dataset::FileSystemDatasetWriteOptions write_options;
+    write_options.filesystem = std::move(fs);
+    write_options.partitioning = std::move(partitioning);
+    write_options.base_dir = airquality_partitioned_dir_;
+    write_options.basename_template = "chunk-{i}.parquet";
+    write_options.file_write_options = parquet_format->DefaultWriteOptions();
+
+    ASSERT_OK(
+        arrow::dataset::FileSystemDataset::Write(write_options, std::move(scanner)));
+  }
+
+  static arrow::Result<std::shared_ptr<arrow::Table>> ReadInAirQuality(
+      arrow::fs::FileSystem* fs) {
+    ARROW_ASSIGN_OR_RAISE(std::string airquality_path,
+                          FindTestDataFile("airquality.parquet"));
+    ARROW_ASSIGN_OR_RAISE(std::shared_ptr<arrow::io::RandomAccessFile> file,
+                          fs->OpenInputFile(airquality_path));
+    std::unique_ptr<parquet::ParquetFileReader> parquet_reader =
+        parquet::ParquetFileReader::Open(file);
+    std::unique_ptr<parquet::arrow::FileReader> reader;
+    ARROW_RETURN_NOT_OK(parquet::arrow::FileReader::Make(
+        arrow::default_memory_pool(), std::move(parquet_reader), &reader));
+    std::shared_ptr<arrow::Table> table;
+    ARROW_RETURN_NOT_OK(reader->ReadTable(&table));
+    return table;
+  }
+
+  std::string airquality_partitioned_dir_;
+};
+
+TEST_F(DatasetReadingTest, DatasetRead) {
   StartRecipe("ListPartitionedDataset");
-  std::string directory_base = "../../../r/content/airquality_partitioned";
+  const std::string& directory_base = airquality_basedir();
 
   // Create a filesystem
   std::shared_ptr<arrow::fs::LocalFileSystem> fs =
@@ -66,7 +132,7 @@ TEST(Datasets, DatasetRead) {
       std::shared_ptr<arrow::dataset::DatasetFactory> dataset_factory,
       arrow::dataset::FileSystemDatasetFactory::Make(fs, selector, format, options));
 
-  // Create the dataset, this will scan the dataset directory to find all of the files
+  // Create the dataset, this will scan the dataset directory to find all the files
   // and may scan some file metadata in order to determine the dataset schema.
   ASSERT_OK_AND_ASSIGN(std::shared_ptr<arrow::dataset::Dataset> dataset,
                        dataset_factory->Finish());

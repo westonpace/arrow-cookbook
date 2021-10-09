@@ -18,14 +18,16 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 # Add Arrow
-find_package(Arrow REQUIRED COMPONENTS dataset)
+find_package(Arrow REQUIRED COMPONENTS dataset parquet)
 get_cmake_property(_variableNames VARIABLES)
 list (SORT _variableNames)
 foreach (_variableName ${_variableNames})
     message(STATUS "${_variableName}=${${_variableName}}")
 endforeach()
 
-set(CMAKE_CXX_CLANG_TIDY "clang-tidy")
+if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    set(CMAKE_CXX_CLANG_TIDY "clang-tidy")
+endif()
 
 # Create test targets
 enable_testing()
@@ -43,6 +45,7 @@ function(RECIPE TARGET)
             ${TARGET}
             arrow_shared
             arrow_dataset
+            parquet
             gtest
     )
     if (MSVC)
