@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Arrow Cookbook</title>
+  <meta name="description" content="Arrow Cookbook" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Arrow Cookbook" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Arrow Cookbook" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="reading-and-writing-data.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a></li>
+<li class="chapter" data-level="2" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html"><i class="fa fa-check"></i><b>2</b> Reading and Writing Data</a><ul>
+<li class="chapter" data-level="2.1" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#converting-from-a-data-frame-to-an-arrow-table"><i class="fa fa-check"></i><b>2.1</b> Converting from a data frame to an Arrow Table</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#solution"><i class="fa fa-check"></i><b>2.1.1</b> Solution</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#converting-data-from-an-arrow-table-to-a-data-frame"><i class="fa fa-check"></i><b>2.2</b> Converting data from an Arrow Table to a data frame</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#solution-1"><i class="fa fa-check"></i><b>2.2.1</b> Solution</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#writing-a-parquet-file"><i class="fa fa-check"></i><b>2.3</b> Writing a Parquet file</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#solution-2"><i class="fa fa-check"></i><b>2.3.1</b> Solution</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#reading-a-parquet-file"><i class="fa fa-check"></i><b>2.4</b> Reading a Parquet file</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#solution-3"><i class="fa fa-check"></i><b>2.4.1</b> Solution</a></li>
+<li class="chapter" data-level="2.4.2" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#discussion"><i class="fa fa-check"></i><b>2.4.2</b> Discussion</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#read-a-parquet-file-from-s3"><i class="fa fa-check"></i><b>2.5</b> Read a Parquet file from S3</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#solution-4"><i class="fa fa-check"></i><b>2.5.1</b> Solution</a></li>
+<li class="chapter" data-level="2.5.2" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#see-also"><i class="fa fa-check"></i><b>2.5.2</b> See also</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#filter-columns-while-reading-a-parquet-file"><i class="fa fa-check"></i><b>2.6</b> Filter columns while reading a Parquet file</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#solution-5"><i class="fa fa-check"></i><b>2.6.1</b> Solution</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#write-an-ipcfeather-v2-file"><i class="fa fa-check"></i><b>2.7</b> Write an IPC/Feather V2 file</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#solution-6"><i class="fa fa-check"></i><b>2.7.1</b> Solution</a></li>
+<li class="chapter" data-level="2.7.2" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#discussion-1"><i class="fa fa-check"></i><b>2.7.2</b> Discussion</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#read-a-feather-file"><i class="fa fa-check"></i><b>2.8</b> Read a Feather file</a><ul>
+<li class="chapter" data-level="2.8.1" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#solution-7"><i class="fa fa-check"></i><b>2.8.1</b> Solution</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#write-streaming-ipc-files"><i class="fa fa-check"></i><b>2.9</b> Write Streaming IPC Files</a><ul>
+<li class="chapter" data-level="2.9.1" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#solution-8"><i class="fa fa-check"></i><b>2.9.1</b> Solution</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#read-streaming-ipc-files"><i class="fa fa-check"></i><b>2.10</b> Read Streaming IPC Files</a><ul>
+<li class="chapter" data-level="2.10.1" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#solution-9"><i class="fa fa-check"></i><b>2.10.1</b> Solution</a></li>
+</ul></li>
+<li class="chapter" data-level="2.11" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#reading-and-writing-csv-files"><i class="fa fa-check"></i><b>2.11</b> Reading and Writing CSV files</a></li>
+<li class="chapter" data-level="2.12" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#read-json-files"><i class="fa fa-check"></i><b>2.12</b> Read JSON files</a><ul>
+<li class="chapter" data-level="2.12.1" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#solution-10"><i class="fa fa-check"></i><b>2.12.1</b> Solution</a></li>
+</ul></li>
+<li class="chapter" data-level="2.13" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#write-partitioned-data"><i class="fa fa-check"></i><b>2.13</b> Write Partitioned Data</a><ul>
+<li class="chapter" data-level="2.13.1" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#solution-11"><i class="fa fa-check"></i><b>2.13.1</b> Solution</a></li>
+</ul></li>
+<li class="chapter" data-level="2.14" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#reading-partitioned-data"><i class="fa fa-check"></i><b>2.14</b> Reading Partitioned Data</a><ul>
+<li class="chapter" data-level="2.14.1" data-path="reading-and-writing-data.html"><a href="reading-and-writing-data.html#solution-12"><i class="fa fa-check"></i><b>2.14.1</b> Solution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="creating-arrow-objects.html"><a href="creating-arrow-objects.html"><i class="fa fa-check"></i><b>3</b> Creating Arrow Objects</a><ul>
+<li class="chapter" data-level="3.1" data-path="creating-arrow-objects.html"><a href="creating-arrow-objects.html#create-an-arrow-array-from-an-r-object"><i class="fa fa-check"></i><b>3.1</b> Create an Arrow Array from an R object</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="creating-arrow-objects.html"><a href="creating-arrow-objects.html#solution-13"><i class="fa fa-check"></i><b>3.1.1</b> Solution</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="creating-arrow-objects.html"><a href="creating-arrow-objects.html#create-a-arrow-table-from-an-r-object"><i class="fa fa-check"></i><b>3.2</b> Create a Arrow Table from an R object</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="creating-arrow-objects.html"><a href="creating-arrow-objects.html#solution-14"><i class="fa fa-check"></i><b>3.2.1</b> Solution</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="creating-arrow-objects.html"><a href="creating-arrow-objects.html#view-the-contents-of-an-arrow-table-or-recordbatch"><i class="fa fa-check"></i><b>3.3</b> View the contents of an Arrow Table or RecordBatch</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="creating-arrow-objects.html"><a href="creating-arrow-objects.html#solution-15"><i class="fa fa-check"></i><b>3.3.1</b> Solution</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="creating-arrow-objects.html"><a href="creating-arrow-objects.html#manually-create-a-recordbatch-from-an-r-object."><i class="fa fa-check"></i><b>3.4</b> Manually create a RecordBatch from an R object.</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="creating-arrow-objects.html"><a href="creating-arrow-objects.html#solution-16"><i class="fa fa-check"></i><b>3.4.1</b> Solution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="defining-data-types.html"><a href="defining-data-types.html"><i class="fa fa-check"></i><b>4</b> Defining Data Types</a><ul>
+<li class="chapter" data-level="4.1" data-path="defining-data-types.html"><a href="defining-data-types.html#update-the-data-type-of-an-existing-arrow-array"><i class="fa fa-check"></i><b>4.1</b> Update the data type of an existing Arrow Array</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="defining-data-types.html"><a href="defining-data-types.html#solution-17"><i class="fa fa-check"></i><b>4.1.1</b> Solution</a></li>
+<li class="chapter" data-level="4.1.2" data-path="defining-data-types.html"><a href="defining-data-types.html#discussion-2"><i class="fa fa-check"></i><b>4.1.2</b> Discussion</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="defining-data-types.html"><a href="defining-data-types.html#update-the-data-type-of-a-field-in-an-existing-arrow-table"><i class="fa fa-check"></i><b>4.2</b> Update the data type of a field in an existing Arrow Table</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="defining-data-types.html"><a href="defining-data-types.html#solution-18"><i class="fa fa-check"></i><b>4.2.1</b> Solution</a></li>
+<li class="chapter" data-level="4.2.2" data-path="defining-data-types.html"><a href="defining-data-types.html#no-compat-type"><i class="fa fa-check"></i><b>4.2.2</b> Discussion</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="defining-data-types.html"><a href="defining-data-types.html#specify-data-types-when-creating-an-arrow-table-from-an-r-object"><i class="fa fa-check"></i><b>4.3</b> Specify data types when creating an Arrow table from an R object</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="defining-data-types.html"><a href="defining-data-types.html#solution-19"><i class="fa fa-check"></i><b>4.3.1</b> Solution</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="defining-data-types.html"><a href="defining-data-types.html#specify-data-types-when-reading-in-files"><i class="fa fa-check"></i><b>4.4</b> Specify data types when reading in files</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="defining-data-types.html"><a href="defining-data-types.html#solution-20"><i class="fa fa-check"></i><b>4.4.1</b> Solution</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="manipulating-data.html"><a href="manipulating-data.html"><i class="fa fa-check"></i><b>5</b> Manipulating Data</a><ul>
+<li class="chapter" data-level="5.1" data-path="manipulating-data.html"><a href="manipulating-data.html#computing-meanminmax-etc-value-of-an-array"><i class="fa fa-check"></i><b>5.1</b> Computing Mean/Min/Max, etc value of an Array</a></li>
+<li class="chapter" data-level="5.2" data-path="manipulating-data.html"><a href="manipulating-data.html#counting-occurrences-of-elements-in-an-array"><i class="fa fa-check"></i><b>5.2</b> Counting occurrences of elements in an Array</a></li>
+<li class="chapter" data-level="5.3" data-path="manipulating-data.html"><a href="manipulating-data.html#applying-arithmetic-functions-to-arrays."><i class="fa fa-check"></i><b>5.3</b> Applying arithmetic functions to Arrays.</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Arrow Cookbook</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Arrow Cookbook</h1>
+</div>
+<div id="preface" class="section level1">
+<h1><span class="header-section-number">1</span> Preface</h1>
+<p>This cookbook aims to provide a number of recipes showing how to perform common tasks using <code>arrow</code>.</p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="reading-and-writing-data.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/apache/arrow-cookbook/edit/main/r/content/index.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
